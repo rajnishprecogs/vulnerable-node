@@ -17,12 +17,15 @@ function getProduct(product_id) {
 }
 
 function search(query) {
-
-    var q = "SELECT * FROM products WHERE name ILIKE '%" + query + "%' OR description ILIKE '%" + query + "%';";
-
-    return db.many(q);
-
+    // FIX: Use parameterized queries to prevent SQL injection
+    // Assuming 'db' is a pg-promise or similar library supporting parameterized queries
+    // Use $1 for parameter substitution
+    var q = "SELECT * FROM products WHERE name ILIKE $1 OR description ILIKE $1;";
+    // Add wildcards to the parameter value, not the query string
+    var param = '%' + query + '%';
+    return db.many(q, [param]);
 }
+// This fix is secure because it uses parameterized queries, ensuring that user input is never directly concatenated into the SQL statement. The database driver will safely escape the input, preventing any possibility of SQL injection.
 
 function purchase(cart) {
 

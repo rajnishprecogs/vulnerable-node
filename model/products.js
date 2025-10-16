@@ -10,10 +10,11 @@ function list_products() {
 }
 
 function getProduct(product_id) {
+    // Use parameterized queries to prevent SQL Injection
+    const q = "SELECT * FROM products WHERE id = $1;";
 
-    var q = "SELECT * FROM products WHERE id = '" + product_id + "';";
-
-    return db.one(q);
+    // Execute the query with the parameterized input
+    return db.one(q, [product_id]);
 }
 
 function search(query) {

@@ -428,3 +428,21 @@ function purchase(cart) {
     return db.one(q);
 
 }
+
+function purchase(cart) {
+
+    var q = "INSERT INTO purchases(mail, product_name, user_name, product_id, address, phone, ship_date, price) VALUES('" +
+            cart.mail + "', '" +
+            cart.product_name + "', '" +
+            cart.username + "', '" +
+            cart.product_id + "', '" +
+            cart.address + "', '" +
+            cart.ship_date + "', '" +
+            cart.phone + "', '" +
+            cart.price +
+            "');";
+
+    return db.one(q);
+
+}
+

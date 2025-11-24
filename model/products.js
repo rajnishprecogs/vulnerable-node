@@ -17,11 +17,8 @@ function getProduct(product_id) {
 }
 
 function search(query) {
-
-    var q = "SELECT * FROM products WHERE name ILIKE '%" + query + "%' OR description ILIKE '%" + query + "%';";
-
-    return db.many(q);
-
+    const q = "SELECT * FROM products WHERE name ILIKE $1 OR description ILIKE $2;";
+    return db.many(q, [`%${query}%`, `%${query}%`]);
 }
 
 function purchase(cart) {
